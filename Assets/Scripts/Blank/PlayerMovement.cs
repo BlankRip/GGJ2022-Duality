@@ -14,7 +14,9 @@ namespace Blank {
         [SerializeField] float normalSpeed = 10;
         [SerializeField] float sprintSpeed = 20;
         [SerializeField] float walkSpeed = 5;
+        [SerializeField] float rotationSpeed = 10;
         private bool grounded;
+        private Quaternion turnAngle;
 
 
 
@@ -36,6 +38,11 @@ namespace Blank {
 
             Vector3 move = ((transform.forward * vertical) + (transform.right * horizontal)) * currentSpeed * Time.deltaTime;
             cc.Move(move);
+
+            if(horizontal != 0 || vertical != 0) {
+                turnAngle = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, turnAngle, rotationSpeed * Time.deltaTime);
+            }
             
             if(grounded && gravityVector.y < 0)
                 gravityVector.y = -2;

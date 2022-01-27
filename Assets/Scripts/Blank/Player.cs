@@ -9,6 +9,7 @@ namespace Blank {
         private CharacterController cc;
         private float horizontalInput, verticalInput;
         private bool grounded, sprint, walk, jump;
+        private bool ctrlRegestered, shiftRegerered;
 
         private void Start() {
             movement = GetComponent<PlayerMovement>();
@@ -17,18 +18,44 @@ namespace Blank {
 
         private void Update() {
             grounded = cc.isGrounded;
+            MovementInputHandeling();
+        }
+
+        private void MovementInputHandeling() {
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
+            if(grounded) {
+                if(shiftRegerered) {
+                    sprint = true;
+                    shiftRegerered = false;
+                }
+                if(ctrlRegestered) {
+                    walk = true;
+                    ctrlRegestered = false;
+                }
+            }
 
-            if(grounded && Input.GetKeyDown(KeyCode.LeftShift))
-                sprint = true;
-            if(Input.GetKeyUp(KeyCode.LeftShift))
+            if(Input.GetKeyDown(KeyCode.LeftShift)) {
+                if(grounded)
+                    sprint = true;
+                else
+                    shiftRegerered = true;
+            }
+            if(Input.GetKeyUp(KeyCode.LeftShift)) {
                 sprint = false;
+                shiftRegerered = false;
+            }
             
-            if(grounded && Input.GetKeyDown(KeyCode.LeftControl))
-                walk = true;
-            if(Input.GetKeyUp(KeyCode.LeftControl))
+            if(Input.GetKeyDown(KeyCode.LeftControl)) {
+                if(grounded)
+                    walk = true;
+                else
+                    ctrlRegestered = true;
+            }
+            if(Input.GetKeyUp(KeyCode.LeftControl)) {
                 walk = false;
+                ctrlRegestered = false;
+            }
             
             if(grounded && Input.GetKeyDown(KeyCode.Space))
                 jump = true;
