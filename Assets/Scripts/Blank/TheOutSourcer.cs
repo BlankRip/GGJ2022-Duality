@@ -7,6 +7,7 @@ namespace Blank {
     {
         public static TheOutSourcer instance;
         public InterationManager interationManager;
+        public InstructionText instructions;
 
         private void Awake() {
             if(instance == null)
