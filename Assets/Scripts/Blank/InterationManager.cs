@@ -7,6 +7,7 @@ namespace Blank {
     public class InterationManager : MonoBehaviour
     {
         private UnityEvent interactEvent;
+        private IInteractable currentInteractable;
         private bool occupied;
 
         private void Start() {
@@ -14,22 +15,21 @@ namespace Blank {
             TheOutSourcer.instance.interationManager = this;
         }
 
-        public void SetInteraction(UnityAction call) {
-            if(!occupied) {
-                interactEvent.AddListener(call);
-                occupied = true;
+        public void SetInteraction(IInteractable interactable) {
+            if(currentInteractable == null && currentInteractable != interactable) {
+                currentInteractable = interactable;
+                currentInteractable.OnEnter();
             }
         }
 
-        public void ClearInteration(UnityAction call) {
-            if(occupied) {
-                interactEvent.RemoveListener(call);
-                occupied = false;
-            }
+        public void ClearInteration(IInteractable interactable) {
+            if(currentInteractable == interactable)
+                currentInteractable = null;
         }
 
         public void Interact() {
-            interactEvent.Invoke();
+            if(currentInteractable != null)
+                currentInteractable.Interact();
         }
 
         public bool IsOccupied() {

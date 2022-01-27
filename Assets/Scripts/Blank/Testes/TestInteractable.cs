@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Blank.Test {
-    public class TestInteractable : MonoBehaviour
+    public class TestInteractable : MonoBehaviour, IInteractable
     {
         [SerializeField] Material toSwapTo;
         [SerializeField] float normalAfter = 3;
@@ -19,27 +19,15 @@ namespace Blank.Test {
 
         private void OnTriggerEnter(Collider other) {
             if(other.CompareTag("Player")) {
-                TheOutSourcer.instance.interationManager.SetInteraction(OnInteract);
-                if(canInteract)
-                    TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Interact");
-                playerIn = true;
+                TheOutSourcer.instance.interationManager.SetInteraction(this);
             }
         }
 
         private void OnTriggerExit(Collider other) {
             if(other.CompareTag("Player")) {
-                TheOutSourcer.instance.interationManager.ClearInteration(OnInteract);
+                TheOutSourcer.instance.interationManager.ClearInteration(this);
                 TheOutSourcer.instance.instructions.CloseInstruction();
                 playerIn = false;
-            }
-        }
-
-        private void OnInteract() {
-            if(canInteract) {
-                TheOutSourcer.instance.instructions.CloseInstruction();
-                canInteract = false;
-                renderer.material = toSwapTo;
-                Invoke("BackToNormal", 2.5f);
             }
         }
 
@@ -48,6 +36,21 @@ namespace Blank.Test {
             if(playerIn)
                 TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Interact");
             canInteract = true;
+        }
+
+        public void Interact() {
+            if(canInteract) {
+                TheOutSourcer.instance.instructions.CloseInstruction();
+                canInteract = false;
+                renderer.material = toSwapTo;
+                Invoke("BackToNormal", 2.5f);
+            }
+        }
+
+        public void OnEnter() {
+            if(canInteract)
+                    TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Interact");
+            playerIn = true;
         }
     }
 }
