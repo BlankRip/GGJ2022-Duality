@@ -30,7 +30,8 @@ namespace Blank {
             }
         }
 
-        public void Heal(int amount) {
+        public bool Heal(int amount) {
+            bool healed = false;
             if(currentIndex < (hearts.Count - 1)) {
                 currentIndex++;
                 for (int i = 0; i < amount; i++) {
@@ -40,7 +41,9 @@ namespace Blank {
                         break;
                 }
                 currentIndex--;
+                healed = true;
             }
+            return healed;
         }
     }
 }
