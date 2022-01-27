@@ -7,6 +7,7 @@ namespace Blank {
     {
         private PlayerMovement movement;
         private CharacterController cc;
+        private InterationManager interationManager;
         private float horizontalInput, verticalInput;
         private bool grounded, sprint, walk, jump;
         private bool ctrlRegestered, shiftRegerered;
@@ -14,6 +15,7 @@ namespace Blank {
         private void Start() {
             movement = GetComponent<PlayerMovement>();
             cc = GetComponent<CharacterController>();
+            interationManager = GetComponent<InterationManager>();
         }
 
         private void Update() {
@@ -33,6 +35,10 @@ namespace Blank {
                     walk = true;
                     ctrlRegestered = false;
                 }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Mouse0)) {
+                interationManager.Interact();
             }
 
             if(Input.GetKeyDown(KeyCode.LeftShift)) {
