@@ -22,8 +22,10 @@ namespace Blank {
         }
 
         public void ClearInteration(UnityAction call) {
-            interactEvent.RemoveListener(call);
-            occupied = false;
+            if(occupied) {
+                interactEvent.RemoveListener(call);
+                occupied = false;
+            }
         }
 
         public void Interact() {
@@ -33,7 +35,5 @@ namespace Blank {
         public bool IsOccupied() {
             return occupied;
         }
-
-
     }
 }
