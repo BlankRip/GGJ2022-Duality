@@ -8,10 +8,14 @@ namespace Blank {
         public static TheOutSourcer instance;
         public InterationManager interationManager;
         public InstructionText instructions;
+        public Transform pickUpPos;
+        public PlayerHealthSystem healthSystem;
 
         private void Awake() {
-            if(instance == null)
+            if(instance == null) {
                 instance = this;
+                pickUpPos = GameObject.FindGameObjectWithTag("PickUpPos").transform;
+            }
             else
                 Destroy(this.gameObject);
         }
