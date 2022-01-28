@@ -6,7 +6,22 @@ using UnityEngine.AI;
 namespace Blank {
     public class Psycho : TheAi
     {
+        [System.Serializable]
+        private class MindStateData {
+            public MindState state;
+            public Material skin;
+            public GameObject face;
+        }
+
+        [Header("FOV")]
         [SerializeField] Fov myFOV;
+
+        [Header("Flipping Stuff")]
+        [SerializeField] MindStateData normalState;
+        [SerializeField] MindStateData psychState;
+        [SerializeField] Renderer skinRenderer;
+        private MindState currentMindState;
+
         [Header("Patrol stuff")]
         [SerializeField] List<Transform> patrolWaypoints;
         [SerializeField] bool loopPatrol;
@@ -21,6 +36,9 @@ namespace Blank {
         [SerializeField] float attackDuration;
 
         private void Start() {
+            currentMindState = MindState.Psych;
+            FilpMindState();
+
             StandardStart();
             PatrolState patrolState = new PatrolState(patrolWaypoints, loopPatrol, idleChance);
             ChaseState chaseState = new ChaseState(TheOutSourcer.instance.interationManager.transform, atkRange, new Vector2(2, 6));
@@ -39,6 +57,23 @@ namespace Blank {
             atkState.myConnections.Add(chaseState);
 
             SwithState(patrolState);
+        }
+
+        private void FilpMindState() {
+            List<Material> mats = new List<Material>();
+            skinRenderer.GetMaterials(mats);
+            if(currentMindState == MindState.Normal) {
+                currentMindState = psychState.state;
+                mats[0] = psychState.skin;
+                psychState.face.SetActive(true);
+                normalState.face.SetActive(false);
+            } else {
+                currentMindState = normalState.state;
+                mats[0] = normalState.skin;
+                normalState.face.SetActive(true);
+                psychState.face.SetActive(false);
+            }
+                skinRenderer.materials = mats.ToArray();
         }
 
         private void Update() {

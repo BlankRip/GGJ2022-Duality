@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Blank {
+    public enum MindState {Normal, Psych};
     public class TheAi : MonoBehaviour
     {
         protected AiState currentState;
