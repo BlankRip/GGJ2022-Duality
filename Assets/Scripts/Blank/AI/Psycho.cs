@@ -6,6 +6,7 @@ using UnityEngine.AI;
 namespace Blank {
     public class Psycho : TheAi
     {
+        [SerializeField] Fov myFOV;
         [Header("Patrol stuff")]
         [SerializeField] List<Transform> patrolWaypoints;
         [SerializeField] bool loopPatrol;
@@ -41,6 +42,7 @@ namespace Blank {
         }
 
         private void Update() {
+            playerInSight = myFOV.inTheView;
             currentState.Exicute(this);
         }
     }

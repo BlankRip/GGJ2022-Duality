@@ -19,6 +19,7 @@ public class Fov : MonoBehaviour
     int count;
     float scanInterval;
     float scanTimer;
+    public bool inTheView;
 
     private void Start() 
     {
@@ -30,12 +31,13 @@ public class Fov : MonoBehaviour
         if(scanTimer < 0) 
         {
             scanTimer += scanInterval;
-            Scan();           
+            inTheView = Scan();           
         }
     }
 
-    private void Scan() 
+    private bool Scan() 
     {
+        bool inSite = false;
         count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
 
         Objects.Clear();
@@ -44,11 +46,12 @@ public class Fov : MonoBehaviour
             GameObject obj = colliders[i].gameObject;
             if(isInSight(obj))
             {
+                inSite = true;
                 Objects.Add(obj);
-                Debug.Log("Object In Sight", obj);
+                //Debug.Log("Object In Sight", obj);
             }
         }
-
+        return inSite;
     }
 
     public bool isInSight(GameObject obj) {
@@ -89,7 +92,8 @@ public class Fov : MonoBehaviour
         if(mesh)
         {
             Gizmos.color = meshColor;
-            Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
+            // Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
+            Gizmos.DrawWireMesh(mesh, transform.position, transform.rotation);
         }
         // Gizmos.DrawWireSphere(transform.position, distance);
         // for(int i = 0; i < count; ++i )

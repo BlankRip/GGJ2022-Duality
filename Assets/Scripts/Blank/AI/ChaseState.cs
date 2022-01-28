@@ -43,8 +43,10 @@ namespace Blank {
 
             ai.na.SetDestination(playerTransform.position);
             distance = (playerTransform.position - ai.transform.position).sqrMagnitude;
-            if(distance <= attackRange)
+            if(distance <= attackRange && ai.playerInSight) {
+                ai.na.SetDestination(ai.transform.position);
                 ai.SwithState(myConnections[1]);
+            }
         }
     }
 }
