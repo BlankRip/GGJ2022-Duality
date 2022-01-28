@@ -8,6 +8,7 @@ namespace Blank {
     {
         protected AiState currentState;
         public float currentSpeed;
+        public bool playerInSight;
         public NavMeshAgent na;
 
         protected void StandardStart() {

@@ -29,8 +29,18 @@ namespace Blank {
             }
         }
 
+        public override void OnEnter(TheAi ai) {
+            FilpperBoy();
+            current += indexChanger;
+            ai.na.SetDestination(new Vector3(waypoints[current].position.x, ai.transform.position.y,waypoints[current].position.z));
+        }
+
         public override void Exicute(TheAi ai) {
-            //if player spoted go to chase
+            Debug.Log("<color=green>Patrolling</color>");
+            if(ai.playerInSight) {
+                ai.SwithState(myConnections[1]);
+                return;
+            }
 
             distance = (ai.transform.position - new Vector3(waypoints[current].position.x, ai.transform.position.y,waypoints[current].position.z)).sqrMagnitude;
             if(distance <= switchDistance) {
@@ -40,18 +50,22 @@ namespace Blank {
                     return;
                 }
 
-                if(current < waypoints.Count) {
-                    if(current == waypoints.Count - 1) {
-                        if(loopPath)
-                            current = 0;
-                        else
-                            indexChanger = -1;
-                    } else if(current == 0) {
-                        indexChanger = 1;
-                    }
-                }
-                ai.na.SetDestination(new Vector3(waypoints[current].position.x, ai.transform.position.y,waypoints[current].position.z));
+                FilpperBoy();
                 current += indexChanger;
+                ai.na.SetDestination(new Vector3(waypoints[current].position.x, ai.transform.position.y,waypoints[current].position.z));
+            }
+        }
+
+        private void FilpperBoy() {
+            if(current < waypoints.Count) {
+                if(current == waypoints.Count - 1) {
+                    if(loopPath)
+                        current = -1;
+                    else
+                        indexChanger = -1;
+                } else if(current == 0) {
+                    indexChanger = 1;
+                }
             }
         }
     }

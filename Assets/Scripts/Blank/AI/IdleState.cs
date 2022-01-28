@@ -19,11 +19,15 @@ namespace Blank {
         }
 
         public override void Exicute(TheAi ai) {
+            Debug.Log("<color=green>Ideling</color>");
+            if(ai.playerInSight) {
+                ai.SwithState(myConnections[1]);
+                return;
+            }
+            
             timer += Time.deltaTime;
             if(timer >= idelingFor)
                 ai.SwithState(myConnections[0]);
-            
-            //Player spotted then go to chase
         }
         
     }

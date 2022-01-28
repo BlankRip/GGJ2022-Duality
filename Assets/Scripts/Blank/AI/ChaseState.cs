@@ -26,18 +26,17 @@ namespace Blank {
 
         public override void Exicute(TheAi ai) {
             if(!searchTimerOn) {
-                //and Player out of sight
-                {
+                if(!ai.playerInSight) {
                     searchTimerOn = true;
                     serachTime = Random.Range(seachTimeRange.x, seachTimeRange.y);
                     timer = 0;
                 }
             } else {
-                //if player in sight
-                //searchTimerOn = false;
+                if(ai.playerInSight)
+                    searchTimerOn = false;
                 timer += Time.deltaTime;
                 if(timer >= serachTime) {
-                    ai.SwithState(myConnections[1]);
+                    ai.SwithState(myConnections[0]);
                     return;
                 }
             }
@@ -45,7 +44,7 @@ namespace Blank {
             ai.na.SetDestination(playerTransform.position);
             distance = (playerTransform.position - ai.transform.position).sqrMagnitude;
             if(distance <= attackRange)
-                ai.SwithState(myConnections[0]);
+                ai.SwithState(myConnections[1]);
         }
     }
 }

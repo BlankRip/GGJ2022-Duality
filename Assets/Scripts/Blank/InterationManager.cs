@@ -6,13 +6,11 @@ using UnityEngine.Events;
 namespace Blank {
     public class InterationManager : MonoBehaviour
     {
-        private UnityEvent interactEvent;
         private IInteractable currentInteractable;
         private IInteractable quiedInteractable;
         private bool occupied;
 
-        private void Start() {
-            interactEvent = new UnityEvent();
+        private void Awake() {
             TheOutSourcer.instance.interationManager = this;
         }
 
