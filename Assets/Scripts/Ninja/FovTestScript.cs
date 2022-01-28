@@ -9,7 +9,71 @@ public class FovTestScript : MonoBehaviour
     [SerializeField] float height = 1.0f;
     [SerializeField] Color meshColor = Color.red;
 
+    public int scanFrequency = 30;
+    public LayerMask layers;
+    public List<GameObject> Objects = new List<GameObject>();
+
+    Collider[] colliders = new Collider[50];
     Mesh mesh;
+    int count;
+    float scanInterval;
+    float scanTimer;
+
+    private void Start() 
+    {
+        scanInterval = 1.0f / scanFrequency;       
+    }
+    private void Update() 
+    {
+        scanTimer -= Time.deltaTime;
+        if(scanTimer < 0) 
+        {
+            scanTimer += scanInterval;
+            Scan();           
+        }
+    }
+
+    private void Scan() 
+    {
+        count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
+
+        Objects.Clear();
+        for(int i = 0; i < count; ++i) 
+        {
+            GameObject obj = colliders[i].gameObject;
+            if(isInSight(obj))
+            {
+                Objects.Add(obj);
+                Debug.Log("Object In Sight", obj);
+            }
+        }
+
+    }
+
+    public bool isInSight(GameObject obj) {
+        return true;
+    }
+    private void OnValidate() 
+    {
+        mesh = CreateWedgeMesh();
+        scanInterval = 1.0f / scanFrequency;
+    }
+
+    private void OnDrawGizmos() 
+    {
+        if(mesh)
+        {
+            Gizmos.color = meshColor;
+            Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
+        }
+        // Gizmos.DrawWireSphere(transform.position, distance);
+        // for(int i = 0; i < count; ++i )
+        // {
+        //     Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);           
+        // }
+    }
+
+
     Mesh CreateWedgeMesh()
     {
         mesh = new Mesh();
@@ -99,18 +163,5 @@ public class FovTestScript : MonoBehaviour
         return mesh;
     }
 
-    private void OnValidate() 
-    {
-        mesh = CreateWedgeMesh();
-    }
-
-    private void OnDrawGizmos() 
-    {
-        if(mesh)
-        {
-            Gizmos.color = meshColor;
-            Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
-        }
-    }
 
 }
