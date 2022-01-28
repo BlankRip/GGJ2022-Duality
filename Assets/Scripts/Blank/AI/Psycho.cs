@@ -19,7 +19,7 @@ namespace Blank {
 
         [Header("Flipping Stuff")]
         [SerializeField] float flipTime = 10;
-        private float timer;
+        [HideInInspector] public float timer;
         [SerializeField] MindStateData normalState;
         [SerializeField] MindStateData psychState;
         [SerializeField] Renderer skinRenderer;
@@ -36,6 +36,10 @@ namespace Blank {
         [SerializeField] ParticleSystem atkParticles;
         [SerializeField] Collider dmgCollider;
         [SerializeField] float attackDuration;
+        [Header("Cat Shit")]
+        [SerializeField] ParticleSystem petingParticle;
+        [SerializeField] float pettingTime = 4;
+        PsychoCatState catState;
 
         private void Start() {
             StandardStart();
@@ -46,6 +50,7 @@ namespace Blank {
             ChaseState chaseState = new ChaseState(TheOutSourcer.instance.interationManager.transform, atkRange, new Vector2(2, 6));
             IdleState idleState = new IdleState(new Vector2(3.5f, 6));
             AttackState atkState = new AttackState(dmgCollider, atkParticles, attackDuration);
+            catState = new PsychoCatState(petingParticle, atkParticles, this, atkRange, pettingTime);
 
             patrolState.myConnections.Add(idleState);
             patrolState.myConnections.Add(chaseState);
@@ -58,10 +63,12 @@ namespace Blank {
 
             atkState.myConnections.Add(chaseState);
 
+            catState.myConnections.Add(patrolState);
+
             SwithState(patrolState);
         }
 
-        private void FilpMindState() {
+        public void FilpMindState() {
             List<Material> mats = new List<Material>();
             skinRenderer.GetMaterials(mats);
             if(currentMindState == MindState.Normal) {
@@ -87,7 +94,9 @@ namespace Blank {
                 timer = 0;
             }
 
-            playerInSight = myFOV.inTheView;
+            itemInSight = myFOV.inTheView;
+            if(itemInSight == ObjInSite.Cat)
+                SwithState(catState);
             currentState.Exicute(this);
         }
     }

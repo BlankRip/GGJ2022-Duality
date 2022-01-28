@@ -7,10 +7,11 @@ namespace Blank {
     {
         [SerializeField] float yeetForce = 3;
         private Rigidbody rb;
-        private bool picked, justDropped;
+        private bool picked, justDropped, canInteract;
 
         private void Start() {
             rb = GetComponent<Rigidbody>();
+            canInteract = true;
         }
 
         private void OnCollisionEnter(Collision other) {
@@ -36,6 +37,7 @@ namespace Blank {
         }
 
         private void PickUp() {
+            gameObject.tag = "Untagged";
             picked = true;
             TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Drop");
             rb.useGravity = false;
@@ -45,6 +47,7 @@ namespace Blank {
         }
 
         private void Drop() {
+            gameObject.tag = "Cat";
             picked = false;
             transform.localRotation = Quaternion.identity;
             transform.parent = null;
@@ -55,15 +58,32 @@ namespace Blank {
             justDropped = true;
         }
 
+        public void InteractStatus(bool state) {
+            canInteract = state;
+        }
+
+        public void SelfDestruction() {
+            Destroy(this.gameObject);
+        }
+
+        private void OnDestroy() {
+            TheOutSourcer.instance.interationManager.ClearInteration(this);
+            if(!justDropped)
+                TheOutSourcer.instance.instructions.CloseInstruction();
+        }
+
         public void Interact() {
-            if(picked)
-                Drop();
-            else
-                PickUp();
+            if(canInteract) {
+                if(picked)
+                    Drop();
+                else
+                    PickUp();
+            }
         }
 
         public void OnEnter() {
-            TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Pick Up");
+            if(canInteract && !picked)
+                TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Pick Up");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Blank {
 
         public override void Exicute(TheAi ai) {
             Debug.Log("<color=green>Patrolling</color>");
-            if(ai.playerInSight && ai.currentMindState == MindState.Psych) {
+            if(ai.itemInSight == ObjInSite.Player && ai.currentMindState == MindState.Psych) {
                 ai.SwithState(myConnections[1]);
                 return;
             }

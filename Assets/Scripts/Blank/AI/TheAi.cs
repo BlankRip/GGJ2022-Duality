@@ -9,7 +9,7 @@ namespace Blank {
     {
         protected AiState currentState;
         public float currentSpeed;
-        public bool playerInSight;
+        public ObjInSite itemInSight;
         public NavMeshAgent na;
         public MindState currentMindState;
 

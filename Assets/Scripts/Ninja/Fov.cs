@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjInSite {Nada, Player, Cat};
 public class Fov : MonoBehaviour
 {
     [SerializeField] float distance = 10f;
@@ -19,7 +20,7 @@ public class Fov : MonoBehaviour
     int count;
     float scanInterval;
     float scanTimer;
-    public bool inTheView;
+    public ObjInSite inTheView;
 
     private void Start() 
     {
@@ -35,9 +36,9 @@ public class Fov : MonoBehaviour
         }
     }
 
-    private bool Scan() 
+    private ObjInSite Scan() 
     {
-        bool inSite = false;
+        ObjInSite inSite = ObjInSite.Nada;
         count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
 
         Objects.Clear();
@@ -46,9 +47,16 @@ public class Fov : MonoBehaviour
             GameObject obj = colliders[i].gameObject;
             if(isInSight(obj))
             {
-                inSite = true;
                 Objects.Add(obj);
                 //Debug.Log("Object In Sight", obj);
+            }
+        }
+        for (int i = 0; i < Objects.Count; i++) {
+            if(Objects[i].CompareTag("Player"))
+                inSite = ObjInSite.Player;
+            if(Objects[i].CompareTag("Cat")) {
+                inSite = ObjInSite.Cat;
+                break;
             }
         }
         return inSite;

@@ -31,13 +31,13 @@ namespace Blank {
             }
 
             if(!searchTimerOn) {
-                if(!ai.playerInSight) {
+                if(ai.itemInSight != ObjInSite.Player) {
                     searchTimerOn = true;
                     serachTime = Random.Range(seachTimeRange.x, seachTimeRange.y);
                     timer = 0;
                 }
             } else {
-                if(ai.playerInSight)
+                if(ai.itemInSight == ObjInSite.Player)
                     searchTimerOn = false;
                 timer += Time.deltaTime;
                 if(timer >= serachTime) {
@@ -48,7 +48,7 @@ namespace Blank {
 
             ai.na.SetDestination(playerTransform.position);
             distance = (playerTransform.position - ai.transform.position).sqrMagnitude;
-            if(distance <= attackRange && ai.playerInSight) {
+            if(distance <= attackRange && ai.itemInSight == ObjInSite.Player) {
                 ai.na.SetDestination(ai.transform.position);
                 ai.SwithState(myConnections[1]);
             }
