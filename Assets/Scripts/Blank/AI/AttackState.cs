@@ -23,6 +23,11 @@ namespace Blank {
         }
 
         public override void Exicute(TheAi ai) {
+            if(ai.currentMindState == MindState.Normal) {
+                attackCollider.enabled = false;
+                ai.SwithState(myConnections[0]);
+            }
+
             timer += Time.deltaTime;
             if(timer >= attackTime) {
                 attackCollider.enabled = false;

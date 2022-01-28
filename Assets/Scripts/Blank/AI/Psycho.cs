@@ -11,16 +11,18 @@ namespace Blank {
             public MindState state;
             public Material skin;
             public GameObject face;
+            public float moveSpeed;
         }
 
         [Header("FOV")]
         [SerializeField] Fov myFOV;
 
         [Header("Flipping Stuff")]
+        [SerializeField] float flipTime = 10;
+        private float timer;
         [SerializeField] MindStateData normalState;
         [SerializeField] MindStateData psychState;
         [SerializeField] Renderer skinRenderer;
-        private MindState currentMindState;
 
         [Header("Patrol stuff")]
         [SerializeField] List<Transform> patrolWaypoints;
@@ -36,10 +38,10 @@ namespace Blank {
         [SerializeField] float attackDuration;
 
         private void Start() {
+            StandardStart();
             currentMindState = MindState.Psych;
             FilpMindState();
 
-            StandardStart();
             PatrolState patrolState = new PatrolState(patrolWaypoints, loopPatrol, idleChance);
             ChaseState chaseState = new ChaseState(TheOutSourcer.instance.interationManager.transform, atkRange, new Vector2(2, 6));
             IdleState idleState = new IdleState(new Vector2(3.5f, 6));
@@ -65,11 +67,13 @@ namespace Blank {
             if(currentMindState == MindState.Normal) {
                 currentMindState = psychState.state;
                 mats[0] = psychState.skin;
+                na.speed = psychState.moveSpeed;
                 psychState.face.SetActive(true);
                 normalState.face.SetActive(false);
             } else {
                 currentMindState = normalState.state;
                 mats[0] = normalState.skin;
+                na.speed = normalState.moveSpeed;
                 normalState.face.SetActive(true);
                 psychState.face.SetActive(false);
             }
@@ -77,6 +81,12 @@ namespace Blank {
         }
 
         private void Update() {
+            timer += Time.deltaTime;
+            if(timer >= flipTime) {
+                FilpMindState();
+                timer = 0;
+            }
+
             playerInSight = myFOV.inTheView;
             currentState.Exicute(this);
         }

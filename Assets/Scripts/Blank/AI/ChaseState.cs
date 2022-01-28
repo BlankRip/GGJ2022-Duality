@@ -25,6 +25,11 @@ namespace Blank {
         }
 
         public override void Exicute(TheAi ai) {
+            if(ai.currentMindState == MindState.Normal) {
+                ai.SwithState(myConnections[0]);
+                return;
+            }
+
             if(!searchTimerOn) {
                 if(!ai.playerInSight) {
                     searchTimerOn = true;

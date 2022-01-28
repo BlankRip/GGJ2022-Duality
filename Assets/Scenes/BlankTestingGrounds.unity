@@ -2411,15 +2411,19 @@ MonoBehaviour:
   currentSpeed: 0
   playerInSight: 0
   na: {fileID: 0}
+  currentMindState: 0
   myFOV: {fileID: 515055427}
+  flipTime: 10
   normalState:
     state: 0
     skin: {fileID: 2100000, guid: 7be7685fd8e930b4ea50421f21bcd4e2, type: 2}
     face: {fileID: 351378732}
+    moveSpeed: 7
   psychState:
     state: 1
     skin: {fileID: 2100000, guid: e36eb40878ac1b542a3603d52ee3ed4b, type: 2}
     face: {fileID: 642982772}
+    moveSpeed: 15
   skinRenderer: {fileID: 8721115944352599619}
   patrolWaypoints:
   - {fileID: 204690620}

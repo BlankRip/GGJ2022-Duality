@@ -11,6 +11,7 @@ namespace Blank {
         public float currentSpeed;
         public bool playerInSight;
         public NavMeshAgent na;
+        public MindState currentMindState;
 
         protected void StandardStart() {
             na = GetComponent<NavMeshAgent>();
