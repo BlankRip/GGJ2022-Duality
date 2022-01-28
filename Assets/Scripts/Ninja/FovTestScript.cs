@@ -11,6 +11,7 @@ public class FovTestScript : MonoBehaviour
 
     public int scanFrequency = 30;
     public LayerMask layers;
+    public LayerMask occlusionLayers;
     public List<GameObject> Objects = new List<GameObject>();
 
     Collider[] colliders = new Collider[50];
@@ -51,6 +52,7 @@ public class FovTestScript : MonoBehaviour
     }
 
     public bool isInSight(GameObject obj) {
+        
         // HEIGHT CORRECTION WHILE KEEPING THE SPHERE
         Vector3 origin = transform.position;
         Vector3 dest = obj.transform.position;
@@ -63,6 +65,14 @@ public class FovTestScript : MonoBehaviour
         direction.y = 0;
         float deltaAngle = Vector3.Angle(direction, transform.forward);
         if(deltaAngle > angle) {
+            return false;
+        }
+
+        //FOR OCCLUSION LAYERS
+        origin.y += height / 2;
+        dest.y = origin.y;
+        if(Physics.Linecast(origin, dest, occlusionLayers)) 
+        {
             return false;
         }
 
