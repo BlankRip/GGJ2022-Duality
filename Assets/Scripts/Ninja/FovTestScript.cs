@@ -7,14 +7,15 @@ public class FovTestScript : MonoBehaviour
     [SerializeField] float distance = 10f;
     [SerializeField] float angle = 30;
     [SerializeField] float height = 1.0f;
-
-    private Color meshColor = Color.red;
+    [SerializeField] Color meshColor = Color.red;
 
     Mesh mesh;
     Mesh CreateWedgeMesh()
     {
         mesh = new Mesh();
-        int numTriangles = 8;
+
+        int segments = 10;
+        int numTriangles = (segments * 4) + 2 + 2;
         int numVertices = numTriangles * 3;
 
         Vector3[] vertices = new Vector3[numVertices];
@@ -49,27 +50,42 @@ public class FovTestScript : MonoBehaviour
         vertices[vert++] = bottomRight;
         vertices[vert++] = bottomCentre;
 
-        //Far Side
+        float currentAngle = -angle;
+        float deltaAngle = (angle * 2) / segments;
+        for(int i = 0; i < segments; ++i) 
+        {
+            bottomLeft = Quaternion.Euler(0, currentAngle, 0) * Vector3.forward * distance;
+            bottomRight = Quaternion.Euler(0, currentAngle + deltaAngle, 0) * Vector3.forward * distance;
 
-        vertices[vert++] = bottomLeft;
-        vertices[vert++] = bottomRight;
-        vertices[vert++] = topRight;
+            topLeft = bottomLeft + Vector3.up * height;
+            topRight = bottomRight + Vector3.up * height;
 
-        vertices[vert++] = topRight;
-        vertices[vert++] = topLeft;
-        vertices[vert++] = bottomLeft;
+            //Far Side
 
-        //top
+            vertices[vert++] = bottomLeft;
+            vertices[vert++] = bottomRight;
+            vertices[vert++] = topRight;
 
-        vertices[vert++] = topCentre;
-        vertices[vert++] = topLeft;
-        vertices[vert++] = topRight;
+            vertices[vert++] = topRight;
+            vertices[vert++] = topLeft;
+            vertices[vert++] = bottomLeft;
 
-        //bottom
+            //top
 
-        vertices[vert++] = bottomCentre;
-        vertices[vert++] = bottomRight;
-        vertices[vert++] = bottomLeft;
+            vertices[vert++] = topCentre;
+            vertices[vert++] = topLeft;
+            vertices[vert++] = topRight;
+
+            //bottom
+
+            vertices[vert++] = bottomCentre;
+            vertices[vert++] = bottomRight;
+            vertices[vert++] = bottomLeft; 
+
+            currentAngle += deltaAngle;
+        }
+
+        
 
         for(int i = 0; i < numVertices; ++i)
         {
