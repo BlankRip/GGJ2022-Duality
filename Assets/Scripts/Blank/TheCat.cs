@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Blank.Test {
-    public class TestHeldPickup : MonoBehaviour, IInteractable
+namespace Blank {
+    public class TheCat : MonoBehaviour, IInteractable
     {
-        private bool picked;
-        private Vector3 spawnPos;
+        [SerializeField] float yeetForce = 3;
+        private Rigidbody rb;
+        private bool picked, justDropped;
+
+        private void Start() {
+            rb = GetComponent<Rigidbody>();
+        }
+
+        private void OnCollisionEnter(Collision other) {
+            if(other.gameObject.CompareTag("Ground")) {
+                justDropped = false;
+                rb.velocity = Vector3.zero;
+            }
+        }
 
         private void OnTriggerEnter(Collider other) {
             if(other.CompareTag("Player")) {
-                spawnPos = transform.position;
                 TheOutSourcer.instance.interationManager.SetInteraction(this);
             }
         }
@@ -18,21 +29,30 @@ namespace Blank.Test {
         private void OnTriggerExit(Collider other) {
             if(other.CompareTag("Player")) {
                 TheOutSourcer.instance.interationManager.ClearInteration(this);
-                TheOutSourcer.instance.instructions.CloseInstruction();
+                if(!justDropped)
+                    TheOutSourcer.instance.instructions.CloseInstruction();
+                    
             }
         }
 
         private void PickUp() {
             picked = true;
             TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Drop");
+            rb.useGravity = false;
+            rb.isKinematic = true;
             transform.parent = TheOutSourcer.instance.pickUpPos;
             transform.localPosition = Vector3.zero;
         }
 
         private void Drop() {
             picked = false;
+            transform.localRotation = Quaternion.identity;
             transform.parent = null;
-            transform.position = spawnPos;
+            Vector3 forceToAdd = transform.forward * yeetForce;
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddForce(forceToAdd, ForceMode.Impulse);
+            justDropped = true;
         }
 
         public void Interact() {
