@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FovTestScript : MonoBehaviour
+public class Fov : MonoBehaviour
 {
     [SerializeField] float distance = 10f;
     [SerializeField] float angle = 30;
