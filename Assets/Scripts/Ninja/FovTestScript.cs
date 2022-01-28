@@ -51,6 +51,21 @@ public class FovTestScript : MonoBehaviour
     }
 
     public bool isInSight(GameObject obj) {
+        // HEIGHT CORRECTION WHILE KEEPING THE SPHERE
+        Vector3 origin = transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+        if(direction.y < 0 || direction.y > height) {
+            return false;
+        }
+
+        //RADIUS OF DETECTION CORRECTION
+        direction.y = 0;
+        float deltaAngle = Vector3.Angle(direction, transform.forward);
+        if(deltaAngle > angle) {
+            return false;
+        }
+
         return true;
     }
     private void OnValidate() 
