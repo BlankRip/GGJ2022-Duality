@@ -48,6 +48,7 @@ namespace Blank {
                 gravityVector.y = -2;
             if(jump) {
                 jump = false;
+                SFX.instance.PlayJump();
                 gravityVector.y = Mathf.Sqrt(-2 * jumpHight * gravity);
             }
             gravityVector.y += gravity * Time.deltaTime;

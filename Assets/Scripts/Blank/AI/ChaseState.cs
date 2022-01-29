@@ -22,6 +22,7 @@ namespace Blank {
 
         public override void OnEnter(TheAi ai) {
             searchTimerOn = false;
+            SFX.instance.PlayStartChase();
         }
 
         public override void Exicute(TheAi ai) {

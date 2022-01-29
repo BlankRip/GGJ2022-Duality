@@ -6,6 +6,7 @@ namespace Blank {
     public class TheCat : MonoBehaviour, IInteractable
     {
         [SerializeField] float yeetForce = 3;
+        [SerializeField] ParticleSystem catEffect;
         private Rigidbody rb;
         private bool picked, justDropped, canInteract;
 
@@ -37,6 +38,7 @@ namespace Blank {
         }
 
         private void PickUp() {
+            SFX.instance.PlayCat();
             gameObject.tag = "Untagged";
             picked = true;
             TheOutSourcer.instance.instructions.ShowInstruction("Press LMB to Drop");
@@ -47,6 +49,7 @@ namespace Blank {
         }
 
         private void Drop() {
+            SFX.instance.PlayCat();
             gameObject.tag = "Cat";
             picked = false;
             transform.localRotation = Quaternion.identity;
@@ -63,6 +66,9 @@ namespace Blank {
         }
 
         public void SelfDestruction() {
+            catEffect.transform.parent = null;
+            catEffect.Play();
+            SFX.instance.PlayCat();
             Destroy(this.gameObject);
         }
 
