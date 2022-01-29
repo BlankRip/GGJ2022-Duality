@@ -111,10 +111,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
   gravity: -9.81
-  jumpHight: 1
-  normalSpeed: 10
-  sprintSpeed: 20
-  walkSpeed: 5
+  jumpHight: 0.5
+  normalSpeed: 4
+  sprintSpeed: 6
+  walkSpeed: 2
   rotationSpeed: 10
 --- !u!114 &733426822700762332
 MonoBehaviour:

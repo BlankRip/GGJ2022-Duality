@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  mouseSensitivity: 3.5
+  mouseSensitivity: 4
   verticalClampMin: -15
   verticalClampMax: 60
   smoothCamRotation: 10
