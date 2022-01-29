@@ -29,6 +29,7 @@ namespace Blank {
         }
 
         private void PauseGame() {
+            warningPanel.SetActive(false);
             pausePanel.SetActive(true);
             Time.timeScale = 0;
             Cursor.visible = true;
