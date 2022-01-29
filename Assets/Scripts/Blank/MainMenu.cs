@@ -17,7 +17,7 @@ namespace Blank {
 
             play.onClick.AddListener(() => {SceneManager.LoadScene(1);});
             credits.onClick.AddListener(() => {mainMenuPanel.SetActive(false); creditsPanel.SetActive(true);});
-            play.onClick.AddListener(() => {Application.Quit();});
+            quit.onClick.AddListener(() => {Application.Quit();});
             closeCredits.onClick.AddListener(() => {mainMenuPanel.SetActive(true); creditsPanel.SetActive(false);});
         }
     }

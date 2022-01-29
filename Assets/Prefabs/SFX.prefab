@@ -154,7 +154,7 @@ MonoBehaviour:
     pitch: 0
   startChase:
     clip: {fileID: 8300000, guid: 90a49cf7c5c5b0b4eb2db97b214787cd, type: 3}
-    pitch: 1
+    pitch: 2
   petting:
     clip: {fileID: 8300000, guid: a703abedd6b4f4d409e6c64297cd09a8, type: 3}
     pitch: 0
