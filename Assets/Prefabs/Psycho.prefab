@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e37e156a0ad3c4189b86a13c4c96c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 7
-  angle: 20
+  distance: 4
+  angle: 30
   height: 1
   meshColor: {r: 1, g: 0, b: 0, a: 1}
   scanFrequency: 30
@@ -240,21 +240,20 @@ MonoBehaviour:
     state: 0
     skin: {fileID: 2100000, guid: 7be7685fd8e930b4ea50421f21bcd4e2, type: 2}
     face: {fileID: 5422721586229641762}
-    moveSpeed: 7
+    moveSpeed: 2.5
   psychState:
     state: 1
     skin: {fileID: 2100000, guid: e36eb40878ac1b542a3603d52ee3ed4b, type: 2}
     face: {fileID: 5422717586263959834}
-    moveSpeed: 15
+    moveSpeed: 4
   skinRenderer: {fileID: 3621737998035843492}
   patrolWaypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   loopPatrol: 1
-  idleChance: 10
-  atkRange: 1.7
+  idleChance: 12
+  atkRange: 0.7
   atkParticles: {fileID: 5423846035749427727}
   dmgCollider: {fileID: 5423846036365542279}
   attackDuration: 1.3
