@@ -144,7 +144,7 @@ MonoBehaviour:
   normalPitch: {fileID: -3890602957463716162, guid: caa078dba4addbb46b827c6b7a1a2663, type: 2}
   highPitch: {fileID: 7112868115171218794, guid: caa078dba4addbb46b827c6b7a1a2663, type: 2}
   hit:
-    clip: {fileID: 8300000, guid: 1e1c84465e7659149be0f19215226f3d, type: 3}
+    clip: {fileID: 8300000, guid: e0a5d3a05303fe64cad5d7948a51e62b, type: 3}
     pitch: 1
   click:
     clip: {fileID: 8300000, guid: edacb11d8d93f644baf098913c1db469, type: 3}
