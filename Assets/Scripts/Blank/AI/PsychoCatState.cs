@@ -39,6 +39,7 @@ namespace Blank {
                 timer += Time.deltaTime;
                 if(timer >= petTime) {
                     petingParticle.Stop();
+                    SFX.instance.StopSFX();
                     cat.InteractStatus(true);
                     petting = false;
                     ai.SwithState(myConnections[0]);
@@ -52,6 +53,7 @@ namespace Blank {
                 if(ai.currentMindState == MindState.Normal) {
                     if(!petingParticle.isPlaying) {
                         petingParticle.Play();
+                        SFX.instance.PlayPetting();
                         cat.InteractStatus(false);
                     }
                     myPsycho.timer = 0;
