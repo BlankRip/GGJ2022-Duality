@@ -93,10 +93,12 @@ namespace Blank {
                 FilpMindState();
                 timer = 0;
             }
-
             itemInSight = myFOV.inTheView;
             if(itemInSight == ObjInSite.Cat)
                 SwithState(catState);
+        }
+
+        private void FixedUpdate() {
             currentState.Exicute(this);
         }
     }

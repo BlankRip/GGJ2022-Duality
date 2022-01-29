@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 5423846036265938699}
   - component: {fileID: 5423846036265938696}
   - component: {fileID: 5423846036265938697}
+  - component: {fileID: 3096824813461851359}
   m_Layer: 0
   m_Name: Psycho
   m_TagString: Untagged
@@ -234,7 +235,7 @@ MonoBehaviour:
   na: {fileID: 0}
   currentMindState: 0
   myFOV: {fileID: 5423846035676407972}
-  flipTime: 10
+  flipTime: 5
   timer: 0
   normalState:
     state: 0
@@ -251,14 +252,38 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  loopPatrol: 1
-  idleChance: 12
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  loopPatrol: 0
+  idleChance: 8
   atkRange: 0.7
   atkParticles: {fileID: 5423846035749427727}
   dmgCollider: {fileID: 5423846036365542279}
   attackDuration: 1.3
   petingParticle: {fileID: 5423846036703247496}
   pettingTime: 4
+--- !u!95 &3096824813461851359
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423846036265938700}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac0ee6a3bc664474db7cc15b70eb9d41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5423846036365542328
 GameObject:
   m_ObjectHideFlags: 0

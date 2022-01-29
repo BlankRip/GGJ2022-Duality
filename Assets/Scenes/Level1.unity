@@ -527,9 +527,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5423846035676407972, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
+      propertyPath: distance
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
       propertyPath: flipTime
-      value: 5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
+      propertyPath: patrolWaypoints.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
@@ -4019,21 +4027,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5423846035676407972, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
+      propertyPath: distance
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
       propertyPath: flipTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
-      propertyPath: idleChance
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
-      propertyPath: loopPatrol
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
-      propertyPath: patrolWaypoints.Array.size
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5423846036265938697, guid: 8e604185ce659fb4f9f77e275a6618e6, type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
